@@ -13,6 +13,9 @@
 ;;startup
 ;;PACKAGES+++++++++++++++++++++++++++++++++
 
+(use-package zig-mode
+  :ensure t)
+
 ;;lsp-mode----------
 (use-package lsp-mode
   :ensure t
@@ -29,12 +32,24 @@
 
 (use-package lsp-ui
   :ensure t
-  :commands (lsp-ui-mode)
   :config
-  (setq lsp-ui-doc-enable nil)
-  (setq lsp-ui-doc-delay 0.5)
-  (define-key lsp-ui-mode-map [remap xref-find-definitions] #'lsp-ui-peed-find-definitions)
-  (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peed-find-references))
+  (setq lsp-enable-symbol-highlighting t)
+  (setq lsp-ui-doc-enable t)
+  (setq lsp-ui-doc-show-with-cursor t)
+  (setq lsp-ui-doc-show-with-mouse t)
+  (setq lsp-lens-enable t)
+  (setq lsp-ui-sideline-enable t)
+  (setq lsp-modeline-code-actions-enable t)
+  (setq lsp-diagnostics-provider :none)
+  (setq lsp-ui-sideline-enable t)
+  (setq lsp-ui-sideline-show-diagnostics t)
+  (setq lsp-eldoc-enable-hover nil)
+  (setq lsp-modeline-diagnostics-enable nil)
+  (setq lsp-signature-auto-activate nil) ;; you could manually request them via `lsp-signature-activate`
+  (setq lsp-signature-render-documentation nil)
+  (setq lsp-completion-provider :none)
+  (setq lsp-completion-show-detail nil)
+  (setq lsp-completion-show-kind nil))
 ;;lsp-mode----------
 ;;compaby------------
 (use-package company
@@ -89,7 +104,6 @@
   (interactive (list myTerm)))
 (ad-activate 'ansi-term)
 (global-set-key (kbd "s-<return>") 'ansi-term)
-;;terminal-----------
 ;;minor customize-----
 (tool-bar-mode -1)
 (menu-bar-mode -1)
@@ -161,7 +175,7 @@
  '(custom-safe-themes
    '("f700bc979515153bef7a52ca46a62c0aa519950cc06d539df4f3d38828944a2c" default))
  '(package-selected-packages
-   '(fiplr clangd lsp-ui lsp-mode company avy smex smes ido-vertical-mode base16-theme which-key)))
+   '(lsp-ui-mode zig-mode fiplr clangd lsp-ui lsp-mode company avy smex smes ido-vertical-mode base16-theme which-key)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
