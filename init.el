@@ -32,6 +32,7 @@
 
 (use-package lsp-ui
   :ensure t
+  :commands lsp-ui-mode
   :config
   (setq lsp-enable-symbol-highlighting t)
   (setq lsp-ui-doc-enable t)
@@ -40,16 +41,17 @@
   (setq lsp-lens-enable t)
   (setq lsp-ui-sideline-enable t)
   (setq lsp-modeline-code-actions-enable t)
-  (setq lsp-diagnostics-provider :none)
+  (setq lsp-diagnostics-provider :flycheck)
   (setq lsp-ui-sideline-enable t)
   (setq lsp-ui-sideline-show-diagnostics t)
-  (setq lsp-eldoc-enable-hover nil)
-  (setq lsp-modeline-diagnostics-enable nil)
-  (setq lsp-signature-auto-activate nil) ;; you could manually request them via `lsp-signature-activate`
-  (setq lsp-signature-render-documentation nil)
-  (setq lsp-completion-provider :none)
-  (setq lsp-completion-show-detail nil)
-  (setq lsp-completion-show-kind nil))
+  (setq lsp-eldoc-enable-hover t)
+  (setq lsp-modeline-diagnostics-enable t)
+  (setq lsp-signature-auto-activate t) ;; you could manually request them via `lsp-signature-activate`
+  (setq lsp-signature-render-documentation t)
+  (setq lsp-completion-provider :company-mode)
+  (setq lsp-completion-show-detail t)
+  (setq lsp-completion-show-kind t)
+  )
 ;;lsp-mode----------
 ;;compaby------------
 (use-package company
@@ -108,9 +110,14 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
+(display-line-numbers-mode t)
+(setq desplay-line-numbers 'relative)
 (setq inhibit-startup-message t)
 (setq scroll-conservatively 100)
 (setq ring-bell-function 'ignore)
+
+
+
 ;;(global-hl-line-mode nil)
 ;;minor customize-----
 ;;electric------------
@@ -155,6 +162,7 @@
 
 (defun copyYankWholeLine ()
   (interactive)
+  (move-end-of-line nil)
   (save-excursion
     (kill-new
      (buffer-substring
@@ -165,7 +173,39 @@
 (global-set-key (kbd "C-c c l") 'copyYankWholeLine)
 
 (global-set-key (kbd "C-c f") 'fiplr-find-file)
-;;FUNCTIONS----------
+
+(defun jumpNext ()
+  (interactive)
+  (next-line)
+  (next-line)
+  (next-line)
+  (next-line)
+  (next-line)
+  (next-line)
+  (next-line)
+  (next-line)
+  (next-line)
+  (next-line)
+  (next-line)
+    (next-line)
+    )
+(defun jumpPrev ()
+  (interactive)
+  (previous-line)
+  (previous-line)
+  (previous-line)
+  (previous-line)
+  (previous-line)
+  (previous-line)
+  (previous-line)
+  (previous-line)
+  (previous-line)
+  (previous-line)
+  (previous-line)
+  )
+(global-set-key (kbd "C-<tab> C-n") 'jumpNext)
+(global-set-key (kbd "C-<tab> C-p") 'jumpPrev)
+;;Functions----------
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -182,3 +222,4 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+(put 'set-goal-column 'disabled nil)
